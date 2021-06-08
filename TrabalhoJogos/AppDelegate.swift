@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  TrabalhoJogos
 //
-//  Created by Lucas Iankowski Corrêa da Silva on 07/06/21.
+//  Created by Lucas Iankowski Corrêa da Silva on 30/05/21.
 //
 
 import UIKit
