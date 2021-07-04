@@ -216,7 +216,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func addButtonShoot(){
-        let image = UIImage(systemName: "arrow.right.circle.fill")
+        let image = UIImage(named: "shootimage")
         let texture = SKTexture(image: image!)
         buttonShoot = SKSpriteNode()
         buttonShoot = SKSpriteNode(texture: texture)
@@ -229,7 +229,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func addButtonJump(){
-        let image = UIImage(systemName: "arrow.right.circle.fill")
+        let image = UIImage(named: "jumpimage")
         let texture = SKTexture(image: image!)
         buttonJump = SKSpriteNode()
         buttonJump = SKSpriteNode(texture: texture)
