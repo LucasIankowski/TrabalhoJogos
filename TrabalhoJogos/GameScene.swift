@@ -24,6 +24,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var timeStamp = 0.0
     
     var pausePoints: CGRect?
+    var buttonLeftPoints: CGRect?
+    var buttonRightPoints: CGRect?
+    var buttonJumpPoints: CGRect?
+    
     var cenaPausada = false
     
     var gameFinished = false
@@ -39,6 +43,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var menuInferior = SKSpriteNode(imageNamed: "terra1")
     var goleiraEsq = SKSpriteNode(imageNamed: "goleiraEsq")
     var goleiraDir = SKSpriteNode(imageNamed: "goleiraDir")
+    var buttonLeft = SKSpriteNode(imageNamed: "arrow.left.circle.fill")
+    var buttonRight = SKSpriteNode(imageNamed: "arrow.right.circle.fill")
+    var buttonJump = SKSpriteNode(imageNamed: "arrow.right.circle.fill")
     var emptyNodeEsq = SKNode() // goleira
     var emptyNodeDir = SKNode() // goleira
     var controleDoTimer = true
@@ -63,6 +70,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         createPlayer()
         createEnemy()
         createBall()
+        addButtonLeft()
+        addButtonRight()
+        addButtonJump()
+        addButtonShoot()
         createPause()
         controleDoTimer = true
         decreseTimer()
@@ -176,6 +187,58 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     //MARK: ADD ELEMS NA TELA
+    func addButtonLeft(){
+        let image = UIImage(systemName: "arrow.left.circle.fill")
+        let texture = SKTexture(image: image!)
+        buttonLeft = SKSpriteNode()
+        buttonLeft = SKSpriteNode(texture: texture)
+        buttonLeft.position = CGPoint(x: -300, y: -150)
+        buttonLeft.size.width = 50
+        buttonLeft.size.height = 50
+        buttonLeft.zPosition = 5
+        buttonLeftPoints = buttonLeft.calculateAccumulatedFrame()
+        addChild(buttonLeft)
+    }
+    
+    func addButtonRight(){
+        let image = UIImage(systemName: "arrow.right.circle.fill")
+        let texture = SKTexture(image: image!)
+        buttonRight = SKSpriteNode()
+        buttonRight = SKSpriteNode(texture: texture)
+        buttonRight.position = CGPoint(x: -250, y: -150)
+        buttonRight.size.width = 50
+        buttonRight.size.height = 50
+        buttonRight.zPosition = 5
+        buttonRightPoints = buttonRight.calculateAccumulatedFrame()
+        addChild(buttonRight)
+    }
+    
+    func addButtonShoot(){
+        let image = UIImage(systemName: "arrow.right.circle.fill")
+        let texture = SKTexture(image: image!)
+        buttonJump = SKSpriteNode()
+        buttonJump = SKSpriteNode(texture: texture)
+        buttonJump.position = CGPoint(x: 350, y: -120)
+        buttonJump.size.width = 50
+        buttonJump.size.height = 50
+        buttonJump.zPosition = 5
+        buttonJumpPoints = buttonJump.calculateAccumulatedFrame()
+        addChild(buttonJump)
+    }
+    
+    func addButtonJump(){
+        let image = UIImage(systemName: "arrow.right.circle.fill")
+        let texture = SKTexture(image: image!)
+        buttonJump = SKSpriteNode()
+        buttonJump = SKSpriteNode(texture: texture)
+        buttonJump.position = CGPoint(x: 300, y: -150)
+        buttonJump.size.width = 50
+        buttonJump.size.height = 50
+        buttonJump.zPosition = 5
+        buttonJumpPoints = buttonJump.calculateAccumulatedFrame()
+        addChild(buttonJump)
+    }
+    
     func createScroreTimer() {
        
         scoreLabelTimer = SKLabelNode(fontNamed: "Chalkduster")
@@ -233,6 +296,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         menuSuperior.zPosition = 2
         addChild(menuSuperior)
     }
+    
     
     func createGoleiraEsq(){
         goleiraEsq.anchorPoint = CGPoint(x: 0.5, y: 0.5)
