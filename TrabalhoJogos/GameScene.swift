@@ -27,6 +27,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var buttonLeftPoints: CGRect?
     var buttonRightPoints: CGRect?
     var buttonJumpPoints: CGRect?
+    var buttonShootPoints: CGRect?
     
     var cenaPausada = false
     
@@ -46,6 +47,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var buttonLeft = SKSpriteNode(imageNamed: "arrow.left.circle.fill")
     var buttonRight = SKSpriteNode(imageNamed: "arrow.right.circle.fill")
     var buttonJump = SKSpriteNode(imageNamed: "arrow.right.circle.fill")
+    var buttonShoot = SKSpriteNode(imageNamed: "arrow.right.circle.fill")
     var emptyNodeEsq = SKNode() // goleira
     var emptyNodeDir = SKNode() // goleira
     var controleDoTimer = true
@@ -216,14 +218,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func addButtonShoot(){
         let image = UIImage(systemName: "arrow.right.circle.fill")
         let texture = SKTexture(image: image!)
-        buttonJump = SKSpriteNode()
-        buttonJump = SKSpriteNode(texture: texture)
-        buttonJump.position = CGPoint(x: 350, y: -120)
-        buttonJump.size.width = 50
-        buttonJump.size.height = 50
-        buttonJump.zPosition = 5
-        buttonJumpPoints = buttonJump.calculateAccumulatedFrame()
-        addChild(buttonJump)
+        buttonShoot = SKSpriteNode()
+        buttonShoot = SKSpriteNode(texture: texture)
+        buttonShoot.position = CGPoint(x: 350, y: -120)
+        buttonShoot.size.width = 50
+        buttonShoot.size.height = 50
+        buttonShoot.zPosition = 5
+        buttonShootPoints = buttonShoot.calculateAccumulatedFrame()
+        addChild(buttonShoot)
     }
     
     func addButtonJump(){
@@ -491,8 +493,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override public func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         firstTouch = touches.first?.location(in: self)
-        if firstTouch!.x >= 0{
-
+        for touch in touches{
+            let location  = touch.location(in: self)
+            if location.x > buttonLeftPoints!.minX && location.y > buttonLeftPoints!.minY && location.x < buttonLeftPoints!.maxX && location.y < buttonLeftPoints!.maxY{
+                player.physicsBody?.applyImpulse(CGVector(dx: -20, dy: 0))
+            }
+            if location.x > buttonRightPoints!.minX && location.y > buttonRightPoints!.minY && location.x < buttonRightPoints!.maxX && location.y < buttonRightPoints!.maxY{
+                player.physicsBody?.applyImpulse(CGVector(dx: 20, dy: 0))
+            }
+        }
+        if firstTouch!.x > buttonJumpPoints!.minX && firstTouch!.y > buttonJumpPoints!.minY && firstTouch!.x < buttonJumpPoints!.maxX && firstTouch!.y < buttonJumpPoints!.maxY{
+            player.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 150))
+            controlJump()
+        }
+        if firstTouch!.x > buttonShootPoints!.minX && firstTouch!.y > buttonShootPoints!.minY && firstTouch!.x < buttonShootPoints!.maxX && firstTouch!.y < buttonShootPoints!.maxY{
             player.physicsBody?.allowsRotation = true
             let shoot = SKAction.rotate(byAngle: .pi/2, duration: 0.2)
             player.run(shoot)
@@ -520,7 +534,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if gameFinished{
             if firstTouch!.x > homePoints!.minX && firstTouch!.y > homePoints!.minY && firstTouch!.x < homePoints!.maxX && firstTouch!.y < homePoints!.maxY{
                 mainMenu()
-                
             }
             if firstTouch!.x > playAgainPoints!.minX && firstTouch!.y > playAgainPoints!.minY && firstTouch!.x < playAgainPoints!.maxX && firstTouch!.y < playAgainPoints!.maxY{
                 //reinicia partida
@@ -548,14 +561,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override public func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         if let location = touches.first?.location(in: self){
-            if location.x < 0 {
-                if location.x < firstTouch!.x{player.physicsBody?.applyImpulse(CGVector(dx: -3, dy: 0))}
-                if location.x > firstTouch!.x{player.physicsBody?.applyImpulse(CGVector(dx: 3, dy: 0))}
-            }
-            if location.y > firstTouch!.y + 100 && canJump{
-                player.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 150))
-                controlJump()
-            }
+//            if location.x < 0 {
+//                if location.x < firstTouch!.x{player.physicsBody?.applyImpulse(CGVector(dx: -3, dy: 0))}
+//                if location.x > firstTouch!.x{player.physicsBody?.applyImpulse(CGVector(dx: 3, dy: 0))}
+//            }
+//            if location.y > firstTouch!.y + 100 && canJump{
+//                player.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 150))
+//                controlJump()
+//            }
+            
+            
         }
     }
     
