@@ -221,8 +221,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         buttonShoot = SKSpriteNode()
         buttonShoot = SKSpriteNode(texture: texture)
         buttonShoot.position = CGPoint(x: 350, y: -120)
-        buttonShoot.size.width = 50
-        buttonShoot.size.height = 50
+        buttonShoot.size.width = 40
+        buttonShoot.size.height = 40
         buttonShoot.zPosition = 5
         buttonShootPoints = buttonShoot.calculateAccumulatedFrame()
         addChild(buttonShoot)
@@ -234,8 +234,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         buttonJump = SKSpriteNode()
         buttonJump = SKSpriteNode(texture: texture)
         buttonJump.position = CGPoint(x: 300, y: -150)
-        buttonJump.size.width = 50
-        buttonJump.size.height = 50
+        buttonJump.size.width = 40
+        buttonJump.size.height = 40
         buttonJump.zPosition = 5
         buttonJumpPoints = buttonJump.calculateAccumulatedFrame()
         addChild(buttonJump)
