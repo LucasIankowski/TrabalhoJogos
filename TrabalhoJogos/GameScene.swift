@@ -42,7 +42,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var emptyNodeEsq = SKNode() // goleira
     var emptyNodeDir = SKNode() // goleira
     var controleDoTimer = true
-
+    
     override func didMove(to view: SKView) {
         physicsWorld.contactDelegate = self
         addElements()
@@ -51,9 +51,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
     }
     
+    func createSoundBackground(){
+        scene?.run(SKAction.playSoundFileNamed("fundoGameSoccer", waitForCompletion: false))
+        
+    }
+    
+    func createSoundApito(){
+        player.run(SKAction.playSoundFileNamed("finalGame", waitForCompletion: false))
+    }
+    
     
     func addElements(){
         createSceneContents()
+        createBackground()
         createGoleiraEsq()
         createGoleirasDir()
         createMenuSuperior()
@@ -67,6 +77,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         controleDoTimer = true
         decreseTimer()
         createEmptyNode()
+        createSoundBackground()
         scene?.isPaused = false
 
     }
@@ -85,20 +96,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         goalFlee = GKGoal(toFleeAgent: ballAgent)
         seekBehavior = GKBehavior(goals: [gkGoal!])
         
+        
+        
+        
+       
         enemyAgent.mass = 0.02
         enemyAgent.maxSpeed = 100.0
         enemyAgent.maxAcceleration = 1000.0
         enemyAgent.behavior = seekBehavior
         enemyAgent.radius = 0.8
         
-        
         self.ballAgente = ballAgent
         self.enemyAgente = enemyAgent
     }
     
     
+    //controle do game
     // MARK: SET TIMER
-    
     func decreseTimer(){
         let timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: controleDoTimer, block: { timer in
             if self.controleDoTimer{
@@ -148,7 +162,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         })
     }
     
-    
     // MARK: ADD DETECCAO DE GOL
     func createEmptyNode(){
         emptyNodeEsq.name = "emptyNodeEsq"
@@ -175,7 +188,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         addChild(emptyNodeDir)
     }
     
-    //MARK: ADD ELEMS NA TELA
+    //HUDS
     func createScroreTimer() {
        
         scoreLabelTimer = SKLabelNode(fontNamed: "Chalkduster")
@@ -216,6 +229,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         scoreLabelEnemy.zPosition = 11
         scoreEnemy = 0
         addChild(scoreLabelEnemy)
+    }
+    func createBackground(){
+        ground.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        ground.position = .zero
+        ground.size = CGSize(width: (scene?.size.width)!, height: (scene?.size.height)! * 1.55)
+        ground.name = "ground"
+        ground.zPosition = 0
+        addChild(ground)
     }
     
     func createFaixa(){
@@ -271,6 +292,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         player.name = "player"
         player.physicsBody = SKPhysicsBody(bodies: [SKPhysicsBody(rectangleOf: CGSize(width: player.size.width, height: player.size.height / 2), center: CGPoint(x: 0, y: -30)),
                                                     SKPhysicsBody.init(circleOfRadius: player.size.width / 4  , center: CGPoint(x: -15, y: +10))])
+        // player.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: player.size.width, height: player.size.height), center: .zero)
         player.physicsBody?.mass = 0.25
         player.physicsBody?.affectedByGravity = true
         player.physicsBody?.isDynamic = true
@@ -355,6 +377,31 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         homePoints = home.calculateAccumulatedFrame()
         addChild(home)
         
+        if scorePlayer1 > scoreEnemy {
+            let youWin = SKSpriteNode(imageNamed: "youwin")
+            youWin.anchorPoint = .zero
+            youWin.position = CGPoint(x: -160, y: -80)
+            youWin.size.width = (scene?.size.width)!/3
+            youWin.size.height = (scene?.size.height)!/2
+            youWin.zPosition = 6
+            addChild(youWin)
+        }else if scoreEnemy > scorePlayer1 {
+            let youlose = SKSpriteNode(imageNamed: "youlose")
+            youlose.anchorPoint = .zero
+            youlose.position = CGPoint(x: -160, y: -80)
+            youlose.size.width = (scene?.size.width)!/3
+            youlose.size.height = (scene?.size.height)!/2
+            youlose.zPosition = 6
+            addChild(youlose)
+        }else {
+            let draw = SKSpriteNode(imageNamed: "draw")
+            draw.anchorPoint = .zero
+            draw.position = CGPoint(x: -160, y: -80)
+            draw.size.width = (scene?.size.width)!/3
+            draw.size.height = (scene?.size.height)!/2
+            draw.zPosition = 6
+            addChild(draw)        }
+        
         
         scene?.isPaused = true
         
@@ -393,10 +440,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 enemyAgente?.position = vector_float2(x: Float((enemy.position.x)), y: Float((-108)))
                 
             } else {
+    
                 ballAgente?.position = vector_float2(x: Float((ball.position.x)), y: Float((-108)))
                 enemyAgente?.update(deltaTime: currentTime - timeStamp)
                 timeStamp = currentTime
             }
+            
 
             if enemy.position.x < -20 && seekBehavior!.weight(for: goalFlee!) == 0.0 {
                 enemyAgente!.behavior!.setWeight(value, for: goalFlee!)
@@ -422,8 +471,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     
-    var firstTouch: CGPoint?
     
+    var firstTouch: CGPoint?
     
     override public func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         firstTouch = touches.first?.location(in: self)
@@ -481,6 +530,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         skView.presentScene(menuScene)
     }
     
+    //MARK: MOVIMENTOS
     override public func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         if let location = touches.first?.location(in: self){
@@ -524,6 +574,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             // print("enemy colidiu com bola")
             scoreEnemy += 1
             spawnElements(nodaA: nodeA.name!, nodeB: nodeB.name!)
+            createSoundApito()
         }
         //goleira dir e bola
         if((nodeA.name == "goleiraDir" && nodeB.name == "ball") ||
@@ -531,11 +582,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             //print("enemy colidiu com bola")
             scorePlayer1 += 1
             spawnElements(nodaA: nodeA.name!, nodeB: nodeB.name!)
+            createSoundApito()
         }
         //chute do inimigo
         if((nodeA.name == "enemy" && nodeB.name == "ball") ||
             (nodeA.name == "ball" && nodeB.name == "enemy")){
             //print("bola colidiu com parte de cima do gol emptyNodeDir")
+            //        enemy.physicsBody?.allowsRotation = true
             if canShoot{
                 let shoot = SKAction.rotate(byAngle: -.pi/2, duration: 0.2)
                 enemy.run(shoot)
@@ -571,10 +624,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if number > 8 {
                 ball.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 15))
             }
+            
+            
+            
         }
     }
     
 }
+
 //MARK: ATT IA
 extension GameScene: GKAgentDelegate{
     func agentDidUpdate(_ agent: GKAgent) {

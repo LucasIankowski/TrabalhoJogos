@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F21FD8162696674600D40CC8 /* apito2.aiff in Resources */ = {isa = PBXBuildFile; fileRef = F21FD8112696674600D40CC8 /* apito2.aiff */; };
+		F21FD8172696674600D40CC8 /* palmas.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F21FD8122696674600D40CC8 /* palmas.mp3 */; };
+		F21FD8182696674600D40CC8 /* fundoGameSoccer.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F21FD8132696674600D40CC8 /* fundoGameSoccer.mp3 */; };
+		F21FD8192696674600D40CC8 /* finalGame.wav in Resources */ = {isa = PBXBuildFile; fileRef = F21FD8142696674600D40CC8 /* finalGame.wav */; };
 		F2AFBFE9266EA8290097F961 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AFBFE8266EA8290097F961 /* AppDelegate.swift */; };
 		F2AFBFEB266EA8290097F961 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = F2AFBFEA266EA8290097F961 /* GameScene.sks */; };
 		F2AFBFED266EA8290097F961 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = F2AFBFEC266EA8290097F961 /* Actions.sks */; };
@@ -18,6 +22,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F21FD8112696674600D40CC8 /* apito2.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = apito2.aiff; sourceTree = "<group>"; };
+		F21FD8122696674600D40CC8 /* palmas.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = palmas.mp3; sourceTree = "<group>"; };
+		F21FD8132696674600D40CC8 /* fundoGameSoccer.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = fundoGameSoccer.mp3; sourceTree = "<group>"; };
+		F21FD8142696674600D40CC8 /* finalGame.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = finalGame.wav; sourceTree = "<group>"; };
 		F2AFBFE5266EA8290097F961 /* TrabalhoJogos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrabalhoJogos.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2AFBFE8266EA8290097F961 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F2AFBFEA266EA8290097F961 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -69,6 +77,10 @@
 				F2AFBFF2266EA8290097F961 /* Main.storyboard */,
 				F2AFBFF5266EA82D0097F961 /* Assets.xcassets */,
 				F2AFBFF7266EA82D0097F961 /* Info.plist */,
+				F21FD8112696674600D40CC8 /* apito2.aiff */,
+				F21FD8142696674600D40CC8 /* finalGame.wav */,
+				F21FD8132696674600D40CC8 /* fundoGameSoccer.mp3 */,
+				F21FD8122696674600D40CC8 /* palmas.mp3 */,
 			);
 			path = TrabalhoJogos;
 			sourceTree = "<group>";
@@ -130,9 +142,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F21FD8162696674600D40CC8 /* apito2.aiff in Resources */,
+				F21FD8172696674600D40CC8 /* palmas.mp3 in Resources */,
 				F2AFBFF4266EA8290097F961 /* Main.storyboard in Resources */,
 				F2AFBFEB266EA8290097F961 /* GameScene.sks in Resources */,
+				F21FD8192696674600D40CC8 /* finalGame.wav in Resources */,
 				F2AFBFF6266EA82D0097F961 /* Assets.xcassets in Resources */,
+				F21FD8182696674600D40CC8 /* fundoGameSoccer.mp3 in Resources */,
 				F2AFBFED266EA8290097F961 /* Actions.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
